@@ -1,7 +1,7 @@
-/* Test Drive Arcade
- * To add a new session: push one object onto SESSIONS with a `games` list.
- * Game types: "quiz" (choose an answer, distractors drawn from other answers or a fixed `buckets` list)
- *             "sequence" (put shuffled steps in the right order)
+/* Test Drive Grand Prix
+ * To add a round: push one object onto SESSIONS with a `line` livery (l1-l4) and a `games` list.
+ * Game types: "quiz" (pick an answer; distractors from other answers, a fixed `buckets` list or `opts`)
+ *             "sequence" (put shuffled steps in grid order)
  */
 
 const SG_PLATFORMS = [
@@ -13,7 +13,7 @@ const SG_PLATFORMS = [
 const SESSIONS = [
   {
     id: "s1",
-    line: "--l1",
+    line: "l1",
     short: "Platform Types",
     date: "3 Oct",
     title: "Digital Platforms in the AI Era",
@@ -91,7 +91,7 @@ const SESSIONS = [
   },
   {
     id: "launchlab",
-    line: "--l2",
+    line: "l2",
     short: "LaunchLab: Vibe Coding",
     date: "9 Oct",
     title: "Vibe Coding with LaunchLab",
@@ -158,7 +158,7 @@ const SESSIONS = [
   },
   {
     id: "s2",
-    line: "--l3",
+    line: "l3",
     short: "Martech Tools",
     date: "9 Oct",
     title: "Digital Marketing Tools",
@@ -214,15 +214,409 @@ const SESSIONS = [
       }
     ]
   }
+  ,
+  {
+    id: "yp",
+    line: "l4",
+    short: "AI Marketing Team",
+    date: "30 Oct",
+    title: "Building an AI Marketing Team",
+    speaker: "Guest session · Nick Goh, Yellow Pages",
+    blurb: "A lite agentic workflow with Claude: six AI teammates, one handoff chain, run end to end on a fictional Louis Vuitton Terra launch in Singapore.",
+    games: [
+      {
+        id: "crew", type: "quiz", name: "Pit Crew", rounds: 10,
+        how: "Six AI teammates, each built as a Claude skill. Read the job and pick who on the crew does it.",
+        kicker: "Who does this job?",
+        items: [
+          { q: "Drafts the brief from the Project's context", a: "Brief Writer", why: "Planning team, step 1. In the demo this was the Marketing Brief Builder skill." },
+          { q: "Needs the goal, audience, budget and timing before it can start", a: "Brief Writer", why: "Those four inputs turn into the draft brief." },
+          { q: "Its output is a draft brief", a: "Brief Writer", why: "The draft then goes to the Brief Validator." },
+          { q: "Critiques the brief in a fresh chat, with fresh eyes", a: "Brief Validator", why: "A new chat means the critic hasn't seen the drafting." },
+          { q: "Checks the objective, audience, message and metric", a: "Brief Validator", why: "It scores the brief against that checklist." },
+          { q: "Its output is a verdict and the top fixes", a: "Brief Validator", why: "On Terra, the fixes were success metrics, objectives, and channels and message." },
+          { q: "Digests the validated brief and develops the Big Idea", a: "Strategist", why: "In the demo: the Researcher Strategist skill, using SOMIN data and web search." },
+          { q: "Its output is a Big Idea one-pager", a: "Strategist", why: "Terra's came back as Nothing to Explain, The Art of Renewal and Made to Be Kept." },
+          { q: "Creates the key visuals (KVs) using connectors such as Higgsfield", a: "Designer / Art Director", why: "Production team. The KV Concept Builder skill plus the Higgsfield connector." },
+          { q: "Its output is KV concepts and assets", a: "Designer / Art Director", why: "Three concepts for Terra: Held, Reassembled and Years." },
+          { q: "Builds the messaging hierarchy", a: "Copywriter", why: "Core promise, supporting messages, proof points and call to action." },
+          { q: "Adapts the messaging per channel and platform", a: "Copywriter", why: "Output: channel-by-channel copy for Instagram, TikTok, LinkedIn and YouTube." },
+          { q: "Checks the work against brand voice", a: "Reviewer", why: "The last link in the handoff chain." },
+          { q: "Confirms the work delivers the brief and the Big Idea, then signs off", a: "Reviewer", why: "Output: edits and sign-off. Creative Review Scorer and Governance Compliance Check help here." }
+        ],
+        buckets: ["Brief Writer", "Brief Validator", "Strategist", "Designer / Art Director", "Copywriter", "Reviewer"]
+      },
+      {
+        id: "handoff", type: "sequence", name: "Handoff Chain",
+        how: "Tap the steps into grid order. Three stints: the chain from the deck, the Terra run as it happened, and the Instagram Story frames.",
+        puzzles: [
+          {
+            title: "The handoff chain",
+            steps: [
+              "Brief Writer drafts the brief",
+              "Brief Validator reviews it in a new chat, with fresh eyes",
+              "Strategist digests the brief and shapes the Big Idea",
+              "You approve it and save it to the knowledge base",
+              "Designer + Copywriter make KVs via Higgsfield and the channel messaging",
+              "Reviewer checks brand voice"
+            ],
+            why: "Planning team, then you, then production. Nothing reaches the creative team until a human approves it."
+          },
+          {
+            title: "The Terra launch, as it ran",
+            steps: [
+              "A “Marketing Brief” email arrives from Nick",
+              "A scheduled task runs Marketing Brief Builder on the email and saves a draft",
+              "A revision session fixes the metrics, objectives, channels and message",
+              "Researcher Strategist uses SOMIN data and web search to find the hidden motivation",
+              "Messaging Hierarchy Builder writes the core promise and three supporting messages",
+              "KV Concept Builder drafts three visual concepts and Higgsfield generates images",
+              "Creative Review Scorer rates the Instagram Story and post out of 10"
+            ],
+            why: "Each skill reads the previous output from the Project knowledge base, so every step builds on approved work."
+          },
+          {
+            title: "Instagram Story, frame by frame",
+            steps: [
+              "Nothing to explain.",
+              "Terra. Louis Vuitton craft, since 1854.",
+              "Discover Terra."
+            ],
+            why: "Object first, then craft, then a soft invitation. Any approved material fact appears once, in frame 2, never in frame 1."
+          }
+        ]
+      },
+      {
+        id: "terra", type: "quiz", name: "Terra Debrief", rounds: 10,
+        how: "Facts and calls from the Terra case, from the brief to the creative scores. Number keys answer fast.",
+        kicker: "Terra case",
+        items: [
+          { q: "Proposed retail price of the (fictional) Terra handbag", a: "S$5,800", opts: ["S$1,200", "S$5,800", "S$10,200", "S$28,000"], why: "S$10,200 is the Chanel Classic resale estimate. S$28,000 is a Kelly on Orchard Road." },
+          { q: "Size of Terra's initial allocation for Singapore", a: "1,000 bags", opts: ["100 bags", "1,000 bags", "10,000 bags", "50,000 bags"], why: "Limited production protects exclusivity, so qualified interest matters more than raw reach." },
+          { q: "Indicative campaign budget in the brief", a: "S$300,000", opts: ["S$30,000", "S$300,000", "S$1.2M", "S$5M"], why: "For a 3-month social campaign, launching September 2027." },
+          { q: "After the revision, which objective became primary?", a: "Consideration", opts: ["Awareness", "Engagement", "Consideration", "Brand health"], why: "Measured by boutique appointments and enquiries. The 1M reach target was flagged as too high." },
+          { q: "The hidden motivation truth: she doesn't want a sustainable bag, she wants a bag she…", a: "never has to justify", opts: ["can prove is green", "never has to justify", "can resell later", "saw on an ambassador"], why: "Beauty is the reason to buy. Verified materials are only the permission." },
+          { q: "In Terra's Big Idea, which layer is the stance?", a: "Nothing to Explain", opts: ["Nothing to Explain", "The Art of Renewal", "Made to Be Kept", "Discover Terra"], why: "The Art of Renewal is the visual territory. Made to Be Kept is the proof pillar." },
+          { q: "Which layer is the proof pillar, weighted to weeks 7 to 12?", a: "Made to Be Kept", opts: ["Nothing to Explain", "The Art of Renewal", "Made to Be Kept", "Discover Terra"], why: "Longevity and care as the luxury argument, once durability claims are tested." },
+          { q: "Primary call to action in the messaging hierarchy", a: "Book an appointment to see Terra", opts: ["Book an appointment to see Terra", "Discover Terra", "Shop now", "Join the waitlist"], why: "“Discover Terra”, which sends people to the product page, is the alternative." },
+          { q: "Which KV concept was recommended as the master visual?", a: "Held", opts: ["Held", "Reassembled", "Years", "Sahara"], why: "It carries no unverified material claim, so it can be approved fastest and costs the least." },
+          { q: "Which two platforms does the revised brief activate?", a: "Instagram and TikTok", opts: ["Instagram and TikTok", "LinkedIn and YouTube", "Facebook and X", "TikTok and YouTube"], why: "Instagram weeks 1 to 12, TikTok weeks 1 to 6, YouTube Shorts in reserve. LinkedIn isn't in the brief." },
+          { q: "In SOMIN data, how many of Louis Vuitton's 210 recent posts touched sustainability topics?", a: "2", opts: ["2", "21", "70", "140"], why: "The 90 days to 29 Oct 2026. LV's feed leans on travel, craft and art partnerships." },
+          { q: "Creativity score for the desert Instagram feed post", a: "4.3/10", opts: ["4.3/10", "5.7/10", "6.7/10", "8.9/10"], why: "The 3-frame Story scored 5.7 and the “hand on the clasp” close-up 6.7. A desire-led craft moment beat a generic desert editorial." },
+          { q: "Which three agency lenses does the Creative Review Scorer use?", a: "BBH, Ogilvy, McCann", opts: ["BBH, Ogilvy, McCann", "WPP, Havas, Publicis", "Lowe, Euro RSCG, Ogilvy", "BBH, TBWA, Wieden+Kennedy"], why: "Each lens gives a score out of 10. The Creativity Score is their average." },
+          { q: "Why did Claude refuse to put the ambassador's face on the generated model?", a: "It would fake a real person's endorsement", opts: ["It would fake a real person's endorsement", "The image was too low resolution", "Higgsfield credits ran out", "The brief banned faces"], why: "A realistic image of a real ambassador with a product she never agreed to could pass as a genuine ad once it leaves class." },
+          { q: "What starts the workflow each day?", a: "A scheduled task that reads the “Marketing Brief” email", opts: ["A scheduled task that reads the “Marketing Brief” email", "A Slack message from the CMO", "A Vercel deploy", "A manual upload of the brief"], why: "The Email Trigger: Marketing Brief Builder runs daily at 6:48 PM on the latest labelled email." },
+          { q: "Why does the Brief Validator run in a new chat?", a: "Fresh eyes: it hasn't seen the drafting", opts: ["Fresh eyes: it hasn't seen the drafting", "New chats are cheaper", "Skills only load in new chats", "To delete the old brief"], why: "A critic that wrote the draft tends to approve it." },
+          { q: "How should an unverified material claim appear in the AI drafts?", a: "Marked [to verify], never invented", opts: ["Marked [to verify], never invented", "Rounded to a safe figure", "Left out without telling anyone", "Used as the headline"], why: "Terra's environmental credentials are hypothetical and must be substantiated before any ad runs." },
+          { q: "Which holding company is folding Ogilvy, VML and AKQA into one creative banner?", a: "WPP", opts: ["WPP", "Omnicom", "Publicis", "Havas"], why: "One of the opening headlines on AI reshaping agencies, alongside job cuts and Getty Images' US bankruptcy filing." },
+          { q: "Which Higgsfield tool was recommended for the multi-shot luxury film?", a: "Cinema Studio 4.0", opts: ["Cinema Studio 4.0", "Canvas", "Ads Studio", "Katana"], why: "Three 5-second shots (The Gaze, The Signature, The Final Impression) cut into one 9:16 film." }
+        ]
+      }
+    ]
+  }
 ];
 
-const NEXT_STOP = { short: "Next session", date: "Soon" };
+/* ---------- Marina Bay night scene (canvas) ----------
+ * Static layer (sky, skyline, bay, palms, floodlights, circuit, long-exposure streaks) is drawn once per size
+ * into an offscreen canvas; cars with light trails are animated on top. */
+function mulberry(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const CAR_COLORS = ["#e10600", "#ff8000", "#00d2be", "#ffd400", "#f4f6ff", "#3d7bff", "#e10600", "#c9ced9"];
+
+function nightScene(cv, opts = {}) {
+  const ctx = cv.getContext("2d");
+  if (!ctx) return;
+  const nCars = opts.cars ?? 7;
+  let W = 0, H = 0, dpr = 1, layer = null, center = [], hw = 20, seen = false, last = 0;
+  const cars = Array.from({ length: nCars }, (_, k) => ({ t: k / nCars + Math.random() * .05, v: .05 + Math.random() * .03, lane: (k % 3 - 1) * .45 + (Math.random() - .5) * .2, c: CAR_COLORS[k % CAR_COLORS.length] }));
+
+  const bez = (p, t) => { const u = 1 - t; return u * u * u * p[0] + 3 * u * u * t * p[1] + 3 * u * t * t * p[2] + t * t * t * p[3]; };
+  function trackPoint(t, lane) {
+    const n = center.length - 1, f = Math.max(0, Math.min(n, t * n)), i = Math.min(n - 1, Math.floor(f)), r = f - i;
+    const a = center[i], b = center[i + 1];
+    const x = a.x + (b.x - a.x) * r, y = a.y + (b.y - a.y) * r, nx = a.nx + (b.nx - a.nx) * r, ny = a.ny + (b.ny - a.ny) * r, w = a.w + (b.w - a.w) * r;
+    return { x: x + nx * lane * w, y: y + ny * lane * w, ang: Math.atan2(b.y - a.y, b.x - a.x), w };
+  }
+
+  function layout() {
+    const r = cv.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return;
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = r.width; H = r.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    build();
+    frame(performance.now(), true);
+  }
+
+  function build() {
+    layer = document.createElement("canvas");
+    layer.width = cv.width; layer.height = cv.height;
+    const g = layer.getContext("2d");
+    g.scale(dpr, dpr);
+    const rnd = mulberry(opts.seed ?? 54);
+    const narrow = W < 640;
+    const S = Math.min(H * .95, W * (narrow ? .9 : .5));
+    const y0 = H * (narrow ? .66 : .62);              // horizon / waterline
+    const yTrees = y0 + H * .055;
+
+    // Sky
+    let gr = g.createLinearGradient(0, 0, 0, y0);
+    gr.addColorStop(0, "#03050f"); gr.addColorStop(.65, "#0a1133"); gr.addColorStop(1, "#2a1d44");
+    g.fillStyle = gr; g.fillRect(0, 0, W, y0 + 2);
+    gr = g.createRadialGradient(W * .65, y0, 0, W * .65, y0, W * .7);
+    gr.addColorStop(0, "rgba(255,130,80,.22)"); gr.addColorStop(1, "rgba(255,130,80,0)");
+    g.fillStyle = gr; g.fillRect(0, 0, W, y0);
+
+    const windows = (x, y, w, h, p, warm = .7, step = 5) => {
+      for (let yy = y + 3; yy < y + h - 2; yy += step + 1) for (let xx = x + 2; xx < x + w - 2; xx += step) {
+        if (rnd() > p) continue;
+        g.fillStyle = rnd() < warm ? `rgba(255,${190 + rnd() * 40 | 0},${110 + rnd() * 60 | 0},${.45 + rnd() * .5})` : `rgba(190,220,255,${.35 + rnd() * .5})`;
+        g.fillRect(xx, yy, 2, 2.4);
+      }
+    };
+    const tower = (x, w, h, col = "#0a1130", p = .35) => {
+      const tg = g.createLinearGradient(x, 0, x + w, 0); tg.addColorStop(0, col); tg.addColorStop(1, "#060b22");
+      g.fillStyle = tg; g.fillRect(x, y0 - h, w, h);
+      windows(x, y0 - h, w, h, p, .6);
+      if (rnd() < .35) { g.fillStyle = "rgba(255,40,40,.9)"; g.fillRect(x + w / 2 - 1, y0 - h - 3, 2, 2); }
+    };
+
+    // Far CBD skyline
+    let x = -10;
+    while (x < W + 10) { const w = 12 + rnd() * 30, h = S * (.08 + rnd() * .32); tower(x, w, h, rnd() < .5 ? "#0b1334" : "#0d1638", .3); x += w + rnd() * 4; }
+
+    // Esplanade domes
+    const ex = W * (narrow ? .3 : .44), dw = S * .16, dh = S * .085;
+    [[ex, 1], [ex + dw * 1.15, .9]].forEach(([cx, k]) => {
+      const rx = dw * .55 * k, ry = dh * k;
+      g.save(); g.beginPath(); g.ellipse(cx, y0, rx, ry, 0, Math.PI, 0); g.closePath(); g.clip();
+      const dg = g.createRadialGradient(cx - rx * .3, y0 - ry * .7, 0, cx, y0, rx * 1.1);
+      dg.addColorStop(0, "#f2c56b"); dg.addColorStop(.55, "#9b7330"); dg.addColorStop(1, "#3a2a12");
+      g.fillStyle = dg; g.fillRect(cx - rx, y0 - ry, rx * 2, ry);
+      g.strokeStyle = "rgba(255,235,180,.35)"; g.lineWidth = .7;
+      for (let d = -rx * 2; d < rx * 2; d += 4) { g.beginPath(); g.moveTo(cx + d, y0); g.lineTo(cx + d + ry, y0 - ry); g.stroke(); g.beginPath(); g.moveTo(cx + d, y0); g.lineTo(cx + d - ry, y0 - ry); g.stroke(); }
+      g.restore();
+    });
+
+    // Tall pyramid-top tower (right edge)
+    const tx = W * (narrow ? .9 : .95) - S * .045, tw = S * .09, th = S * .6;
+    g.fillStyle = "#0c1536"; g.fillRect(tx, y0 - th, tw, th); windows(tx, y0 - th, tw, th, .55, .8);
+    g.beginPath(); g.moveTo(tx - 2, y0 - th); g.lineTo(tx + tw / 2, y0 - th - S * .11); g.lineTo(tx + tw + 2, y0 - th); g.closePath();
+    gr = g.createLinearGradient(0, y0 - th - S * .11, 0, y0 - th); gr.addColorStop(0, "#ffffff"); gr.addColorStop(1, "#9fb2d8");
+    g.fillStyle = gr; g.fill();
+
+    // Singapore Flyer
+    const fx = W * (narrow ? .72 : .82), R = S * .2, fy = y0 - R - S * .07;
+    g.strokeStyle = "rgba(200,210,240,.5)"; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(fx - R * .55, y0); g.lineTo(fx, fy); g.lineTo(fx + R * .55, y0); g.stroke();
+    g.lineWidth = .6; g.strokeStyle = "rgba(255,120,190,.35)";
+    for (let k = 0; k < 28; k++) { const a = k / 28 * Math.PI * 2; g.beginPath(); g.moveTo(fx, fy); g.lineTo(fx + Math.cos(a) * R, fy + Math.sin(a) * R); g.stroke(); }
+    g.save(); g.shadowColor = "#ff3d8b"; g.shadowBlur = 14; g.strokeStyle = "#ff4f9a"; g.lineWidth = 2.6;
+    g.beginPath(); g.arc(fx, fy, R, 0, Math.PI * 2); g.stroke();
+    g.lineWidth = 1; g.beginPath(); g.arc(fx, fy, R * .93, 0, Math.PI * 2); g.stroke(); g.restore();
+    g.fillStyle = "rgba(240,240,255,.85)";
+    for (let k = 0; k < 28; k++) { const a = k / 28 * Math.PI * 2; g.beginPath(); g.arc(fx + Math.cos(a) * R * 1.03, fy + Math.sin(a) * R * 1.03, 1.3, 0, 7); g.fill(); }
+    g.fillStyle = "#0d1638"; g.fillRect(fx - R * .7, y0 - S * .04, R * 1.4, S * .04);
+    windows(fx - R * .7, y0 - S * .04, R * 1.4, S * .04, .5, .9, 4);
+
+    // Marina Bay Sands
+    const mx = W * (narrow ? .46 : .62), mw = S * .075, mgap = S * .055, mh = S * .52;
+    const tops = [];
+    for (let k = 0; k < 3; k++) {
+      const bx = mx + (k - 1) * (mw + mgap) - mw / 2, flare = mw * .18;
+      g.beginPath(); g.moveTo(bx, y0 - mh); g.lineTo(bx + mw, y0 - mh); g.lineTo(bx + mw + flare * .4, y0); g.lineTo(bx - flare, y0); g.closePath();
+      const mg = g.createLinearGradient(bx, 0, bx + mw, 0); mg.addColorStop(0, "#131d48"); mg.addColorStop(1, "#0a1232");
+      g.fillStyle = mg; g.fill();
+      g.save(); g.clip(); windows(bx - flare, y0 - mh, mw + flare * 1.4, mh, .62, .92, 4); g.restore();
+      g.fillStyle = "rgba(5,8,22,.85)"; g.fillRect(bx + mw * .46, y0 - mh, mw * .08, mh);
+      g.strokeStyle = "rgba(200,220,255,.55)"; g.lineWidth = 1; g.beginPath(); g.moveTo(bx, y0 - mh); g.lineTo(bx - flare, y0); g.stroke();
+      tops.push(bx);
+    }
+    const spL = tops[0] - mw * .25, spR = tops[2] + mw + S * .13, spY = y0 - mh - S * .012, spT = S * .028;
+    g.beginPath(); g.moveTo(spL, spY); g.lineTo(spR, spY - spT * .2); g.quadraticCurveTo(spR + spT, spY + spT * .4, spR - spT * .6, spY + spT * .8); g.lineTo(spL, spY + spT * .8); g.closePath();
+    g.fillStyle = "#16224f"; g.fill();
+    g.strokeStyle = "rgba(160,190,255,.75)"; g.lineWidth = 1.2; g.beginPath(); g.moveTo(spL, spY); g.lineTo(spR, spY - spT * .2); g.stroke();
+    for (let xx = spL + 3; xx < spR - 3; xx += 4) { g.fillStyle = rnd() < .5 ? "rgba(40,130,90,.9)" : "rgba(255,210,140,.8)"; g.fillRect(xx, spY - 2.5, 2, 2); }
+    gr = g.createRadialGradient(mx, spY, 0, mx, spY, S * .35); gr.addColorStop(0, "rgba(120,150,255,.16)"); gr.addColorStop(1, "rgba(120,150,255,0)");
+    g.fillStyle = gr; g.fillRect(mx - S * .4, spY - S * .35, S * .8, S * .7);
+
+    // Bay
+    g.fillStyle = "#040919"; g.fillRect(0, y0, W, yTrees - y0 + 2);
+    for (let k = 0; k < W / 3; k++) {
+      const rx = rnd() * W, len = 2 + rnd() * (yTrees - y0) * .8;
+      g.fillStyle = rnd() < .2 ? "rgba(255,80,150,.35)" : `rgba(255,${180 + rnd() * 60 | 0},120,${.12 + rnd() * .25})`;
+      g.fillRect(rx, y0 + 1 + rnd() * 3, 1.5 + rnd() * 2, len);
+    }
+
+    // Floodlight glow (behind palms)
+    const poles = narrow ? [.12, .5, .88] : [.06, .27, .48, .7, .93];
+    const poleTop = yTrees - S * .2;
+    g.globalCompositeOperation = "lighter";
+    poles.forEach(px => {
+      const gx = W * px;
+      const fg = g.createRadialGradient(gx, poleTop, 0, gx, poleTop, S * .22);
+      fg.addColorStop(0, "rgba(220,235,255,.45)"); fg.addColorStop(.25, "rgba(200,220,255,.12)"); fg.addColorStop(1, "rgba(200,220,255,0)");
+      g.fillStyle = fg; g.fillRect(gx - S * .25, poleTop - S * .25, S * .5, S * .5);
+    });
+    g.globalCompositeOperation = "source-over";
+
+    // Palms + treeline
+    g.fillStyle = "#04140f";
+    for (let xx = -10; xx < W + 10; xx += 9) { g.beginPath(); g.arc(xx, yTrees + 4, 7 + rnd() * 7, 0, 7); g.fill(); }
+    g.fillRect(0, yTrees + 4, W, H * .2);
+    const palm = (px, base, hgt) => {
+      g.strokeStyle = "#071d16"; g.lineWidth = 2.2;
+      const top = { x: px + hgt * .12, y: base - hgt };
+      g.beginPath(); g.moveTo(px, base); g.quadraticCurveTo(px + hgt * .02, base - hgt * .5, top.x, top.y); g.stroke();
+      g.lineWidth = 1.8;
+      for (let k = 0; k < 7; k++) {
+        const a = -Math.PI * .95 + k * Math.PI * .32, l = hgt * (.3 + rnd() * .12);
+        g.beginPath(); g.moveTo(top.x, top.y);
+        g.quadraticCurveTo(top.x + Math.cos(a) * l * .6, top.y + Math.sin(a) * l * .6 - l * .15, top.x + Math.cos(a) * l, top.y + Math.sin(a) * l + l * .35); g.stroke();
+      }
+    };
+    for (let k = 0; k < (narrow ? 6 : 14); k++) palm(rnd() * W, yTrees + 10, S * (.1 + rnd() * .08));
+
+    // Floodlight poles + heads
+    poles.forEach(px => {
+      const gx = W * px;
+      g.strokeStyle = "rgba(150,165,200,.55)"; g.lineWidth = 1.4;
+      g.beginPath(); g.moveTo(gx, yTrees + 14); g.lineTo(gx, poleTop); g.stroke();
+      g.save(); g.shadowColor = "#dfe9ff"; g.shadowBlur = 12; g.fillStyle = "#f4f8ff";
+      g.fillRect(gx - S * .025, poleTop - S * .012, S * .05, S * .016); g.restore();
+    });
+
+    // Circuit centreline (cubic) sampled with normals
+    const py = narrow ? [H * 1.08, H * .8, H * .8, H * .95] : [H * 1.1, H * .76, H * .78, H * .93];
+    const pxs = [-W * .06, W * .3, W * .68, W * 1.06];
+    center = [];
+    const N = 90;
+    for (let k = 0; k <= N; k++) {
+      const t = k / N, cx = bez(pxs, t), cy = bez(py, t);
+      center.push({ x: cx, y: cy, t });
+    }
+    center.forEach((p, k) => {
+      const a = center[Math.max(0, k - 1)], b = center[Math.min(N, k + 1)];
+      const dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy) || 1;
+      p.nx = -dy / L; p.ny = dx / L;                  // points "up" (towards far side) when moving right
+      if (p.ny > 0) { p.nx *= -1; p.ny *= -1; }
+      const depth = (p.y - H * .74) / (H * .36);      // nearer = wider
+      p.w = Math.max(14, H * (.065 + .075 * Math.max(0, Math.min(1, depth))));
+    });
+    hw = H * .07;
+    const edge = (off) => center.map(p => ({ x: p.x + p.nx * p.w * off, y: p.y + p.ny * p.w * off }));
+    const band = (o1, o2, fill) => {
+      const a = edge(o1), b = edge(o2).reverse();
+      g.beginPath(); a.forEach((p, k) => k ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y)); b.forEach(p => g.lineTo(p.x, p.y)); g.closePath();
+      g.fillStyle = fill; g.fill();
+    };
+    // catch fence + barrier on the far side
+    const fence = edge(1.9), wall = edge(1.6);
+    g.strokeStyle = "rgba(200,210,235,.22)"; g.lineWidth = .8;
+    fence.forEach((p, k) => { if (k % 2) return; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x, p.y - S * .07); g.stroke(); });
+    g.beginPath(); fence.forEach((p, k) => k ? g.lineTo(p.x, p.y - S * .07) : g.moveTo(p.x, p.y - S * .07)); g.stroke();
+    band(1.35, 1.75, "#0b0d14");
+    wall.forEach((p, k) => { if (k % 4) return; g.fillStyle = "rgba(255,212,0,.75)"; g.fillRect(p.x - 3, p.y - 1.5, 6, 2.2); });
+    band(1.1, 1.38, getVar("--runoff", "#13a06a"));
+    // asphalt
+    band(-1, 1, "#262a35");
+    const sheen = g.createLinearGradient(0, H * .7, 0, H);
+    sheen.addColorStop(0, "rgba(220,235,255,.10)"); sheen.addColorStop(1, "rgba(0,0,0,.25)");
+    band(-1, 1, sheen);
+    // kerbs
+    const kerb = (o1, o2) => {
+      const a = edge(o1), b = edge(o2);
+      for (let k = 0; k < N; k++) {
+        g.beginPath(); g.moveTo(a[k].x, a[k].y); g.lineTo(a[k + 1].x, a[k + 1].y); g.lineTo(b[k + 1].x, b[k + 1].y); g.lineTo(b[k].x, b[k].y); g.closePath();
+        g.fillStyle = Math.floor(k / 2) % 2 ? "#f4f6ff" : "#e10600"; g.fill();
+      }
+    };
+    kerb(1, 1.12); kerb(-1, -1.12);
+    // white edge lines + yellow pit line
+    [[.96, "rgba(255,255,255,.75)"], [-.96, "rgba(255,255,255,.6)"], [-.82, "rgba(255,212,0,.55)"]].forEach(([o, c]) => {
+      const e = edge(o); g.strokeStyle = c; g.lineWidth = 1.3; g.beginPath(); e.forEach((p, k) => k ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y)); g.stroke();
+    });
+    // long-exposure streaks
+    g.globalCompositeOperation = "lighter";
+    [-.55, -.2, .15, .5].forEach((lane, j) => {
+      const s0 = .05 + rnd() * .2, s1 = s0 + .25 + rnd() * .3;
+      for (let t = s0; t < s1; t += .006) {
+        const a = trackPoint(t, lane), b = trackPoint(t + .006, lane), al = Math.sin((t - s0) / (s1 - s0) * Math.PI) * .45;
+        g.strokeStyle = j % 2 ? `rgba(255,70,40,${al})` : `rgba(255,150,120,${al * .8})`; g.lineWidth = 2;
+        g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
+      }
+    });
+    g.globalCompositeOperation = "source-over";
+  }
+
+  function drawCar(p, c, scale) {
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.ang);
+    const L = scale * 3.4, Wd = scale * 1.25;
+    ctx.fillStyle = "#0b0d14"; ctx.fillRect(-L * .55, -Wd * .75, L * .22, Wd * 1.5); ctx.fillRect(L * .38, -Wd * .7, L * .14, Wd * 1.4);
+    ctx.fillStyle = c; ctx.beginPath(); ctx.moveTo(-L * .45, -Wd * .45); ctx.lineTo(L * .5, -Wd * .18); ctx.lineTo(L * .5, Wd * .18); ctx.lineTo(-L * .45, Wd * .45); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "#0b0d14"; [[-.3, -.62], [-.3, .62], [.28, -.6], [.28, .6]].forEach(([a, b]) => ctx.fillRect(L * a - scale * .35, Wd * b - scale * .22, scale * .7, scale * .44));
+    ctx.shadowColor = "#ff2a1f"; ctx.shadowBlur = 8; ctx.fillStyle = "#ff3b2e"; ctx.fillRect(-L * .56, -scale * .15, scale * .3, scale * .3);
+    ctx.restore();
+  }
+
+  function frame(now, still) {
+    if (!layer) return;
+    const dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.drawImage(layer, 0, 0);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.globalCompositeOperation = "lighter";
+    cars.forEach(car => {
+      if (!still) car.t += car.v * dt;
+      if (car.t > 1.12) { car.t = -.08; car.v = .05 + Math.random() * .03; }
+      if (car.t < 0 || car.t > 1) return;
+      for (let s = 0; s < 14; s++) {
+        const t1 = car.t - s * .008, t2 = t1 - .008;
+        if (t2 < 0) break;
+        const a = trackPoint(t1, car.lane), b = trackPoint(t2, car.lane);
+        ctx.strokeStyle = `rgba(255,${60 + s * 6},40,${(1 - s / 14) * .75})`; ctx.lineWidth = Math.max(1.5, a.w * .07);
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+    });
+    ctx.globalCompositeOperation = "source-over";
+    cars.slice().sort((a, b) => trackPoint(a.t, a.lane).y - trackPoint(b.t, b.lane).y).forEach(car => {
+      if (car.t < 0 || car.t > 1) return;
+      const p = trackPoint(car.t, car.lane);
+      drawCar(p, car.c, Math.max(3, p.w * .18));
+    });
+  }
+
+  function loop(now) {
+    if (!cv.isConnected) { if (seen) return; requestAnimationFrame(loop); return; }
+    seen = true;
+    if (!layer || cv.width !== Math.round(cv.getBoundingClientRect().width * dpr)) layout();
+    frame(now, false);
+    requestAnimationFrame(loop);
+  }
+
+  if (typeof ResizeObserver !== "undefined") new ResizeObserver(() => cv.isConnected && layout()).observe(cv);
+  if (reduceMotion) {
+    const once = () => { if (!cv.isConnected) return requestAnimationFrame(once); layout(); };
+    requestAnimationFrame(once);
+  } else requestAnimationFrame(loop);
+}
+function getVar(name, fallback) { try { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback; } catch { return fallback; } }
+function nightBanner(slim, ...content) {
+  const cv = h("canvas", { "aria-hidden": "true" });
+  nightScene(cv, { seed: slim ? 91 : 54, cars: slim ? 5 : 8 });
+  return h("div", { class: "night" + (slim ? " slim" : "") }, cv, h("div", { class: "night-content" }, ...content), h("span", { class: "scene-cap" }, "Marina Bay · night race"));
+}
+
+const NEXT_STOP = { short: "Next round", date: "TBC" };
+const PTS = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+const SES_LABELS = { 1: ["Race"], 2: ["Quali", "Race"], 3: ["FP1", "Quali", "Race"] };
+const FAST_MS = 6000;
+const reduceMotion = (() => { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch { return false; } })();
 
 /* ---------- helpers ---------- */
 const $ = (sel, el = document) => el.querySelector(sel);
 const h = (tag, attrs = {}, ...kids) => {
   const el = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) {
+  for (const [k, v] of Object.entries(attrs || {})) {
     if (k === "class") el.className = v;
     else if (k === "style") el.setAttribute("style", v);
     else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
@@ -237,23 +631,43 @@ const store = {
   set(k, v) { try { localStorage.setItem("tda:" + k, JSON.stringify(v)); } catch {} }
 };
 const bestKey = (s, g) => `best:${s.id}:${g.id}`;
+const timeKey = (s, g) => `time:${s.id}:${g.id}`;
 const maxScore = (g) => g.type === "sequence" ? g.puzzles.reduce((n, p) => n + p.steps.length, 0) : Math.min(g.rounds, g.items.length);
+const posFor = (score, max) => max ? Math.min(20, 1 + Math.round((1 - score / max) * 10)) : 20;
+const ptsFor = (pos) => PTS[pos - 1] || 0;
+const fmt = (ms) => { const t = Math.max(0, ms || 0); const m = Math.floor(t / 60000); const s = Math.floor((t % 60000) / 1000); const d = Math.floor((t % 1000) / 100); return `${m}:${String(s).padStart(2, "0")}.${d}`; };
+const lineStyle = (s) => `--line:var(--${s.line});--line-t:var(--${s.line}t);--on-line:var(--${s.line}o)`;
+const roundNo = (i) => "R" + String(i + 1).padStart(2, "0");
+const sesLabel = (s, gi) => (SES_LABELS[s.games.length] || [])[gi] || `S${gi + 1}`;
+const bestOf = (s, g) => { const b = store.get(bestKey(s, g), null); if (b == null) return null; const pos = posFor(b, maxScore(g)); return { score: b, pos, pts: ptsFor(pos), time: store.get(timeKey(s, g), null) }; };
 
-/* ---------- tabs ---------- */
+function gantry() {
+  return h("div", { class: "gantry", "aria-hidden": "true" },
+    Array.from({ length: 5 }, () => h("div", { class: "pod" }, h("span", { class: "bulb red" }), h("span", { class: "bulb red" }))));
+}
+function runLights(g, onStep, onDone) {
+  const pods = [...g.querySelectorAll(".pod")];
+  pods.forEach(p => p.classList.remove("on"));
+  const timers = pods.map((p, i) => setTimeout(() => { p.classList.add("on"); onStep && onStep(i); }, 550 * (i + 1)));
+  timers.push(setTimeout(() => { pods.forEach(p => p.classList.remove("on")); onDone && onDone(); }, 550 * 5 + 450 + Math.random() * 800));
+  return () => timers.forEach(clearTimeout);
+}
+const wave = () => h("span", { class: "wave", "aria-hidden": "true" }, Array.from({ length: 6 }, () => h("i")));
+
+/* ---------- calendar ---------- */
 let current = "home";
 let keyHandler = null;
 
 function renderTabs() {
-  const tabs = $("#tabs");
-  tabs.replaceChildren(
-    station("home", "Map", "Start", "--ink"),
-    ...SESSIONS.map(s => station(s.id, s.short, s.date, s.line)),
-    h("span", { class: "station future", style: "--line: var(--rule)" }, h("span", { class: "dot" }), h("span", { class: "lbl" }, NEXT_STOP.short), h("span", { class: "when" }, NEXT_STOP.date))
+  $("#tabs").replaceChildren(
+    roundTab("home", "STD", "Standings", "Season", "--line:var(--ink);--line-t:var(--ink);--on-line:var(--bg)"),
+    ...SESSIONS.map((s, i) => roundTab(s.id, roundNo(i), s.short, s.date, lineStyle(s))),
+    h("span", { class: "round future" }, h("span", { class: "rn" }, roundNo(SESSIONS.length)), h("span", { class: "lbl" }, NEXT_STOP.short), h("span", { class: "when" }, NEXT_STOP.date))
   );
 }
-function station(id, label, when, line) {
-  return h("button", { class: "station", role: "tab", "aria-selected": String(current === id), style: `--line: var(${line})`, onclick: () => go(id) },
-    h("span", { class: "dot", "aria-hidden": "true" }), h("span", { class: "lbl" }, label), h("span", { class: "when" }, when));
+function roundTab(id, rn, label, when, style) {
+  return h("button", { class: "round", role: "tab", "aria-selected": String(current === id), style, onclick: () => go(id) },
+    h("span", { class: "rn" }, rn), h("span", { class: "lbl" }, label), h("span", { class: "when" }, when));
 }
 
 function go(id) {
@@ -262,76 +676,140 @@ function go(id) {
   if (location.hash.slice(1) !== current) history.replaceState(null, "", "#" + current);
   renderTabs();
   keyHandler = null;
-  const main = $("#main");
-  main.replaceChildren(current === "home" ? renderHome() : renderSession(SESSIONS.find(s => s.id === current)));
+  $("#main").replaceChildren(current === "home" ? renderHome() : renderSession(SESSIONS.find(s => s.id === current)));
+  const sel = $('#tabs [aria-selected="true"]');
+  if (sel) sel.scrollIntoView({ block: "nearest", inline: "nearest" });
   window.scrollTo({ top: 0 });
 }
 
-/* ---------- home ---------- */
+/* ---------- home: championship standings ---------- */
 function renderHome() {
-  let earned = 0, possible = 0, played = 0, total = 0;
-  SESSIONS.forEach(s => s.games.forEach(g => { total++; possible += maxScore(g); const b = store.get(bestKey(s, g), null); if (b != null) { earned += b; played++; } }));
+  let points = 0, finished = 0, total = 0, podiums = 0;
+  SESSIONS.forEach(s => s.games.forEach(g => { total++; const b = bestOf(s, g); if (b) { finished++; points += b.pts; if (b.pos <= 3) podiums++; } }));
+  const lights = gantry();
+  const lightsBtn = h("button", { class: "gantry-btn", style: "border:0;background:none;padding:0", "aria-label": "Replay the start lights", onclick: () => runLights(lights) }, lights);
+  if (!reduceMotion) setTimeout(() => lights.isConnected && runLights(lights), 300);
   return h("section", { class: "panel" },
-    h("div", { class: "panel-head" },
-      h("span", { class: "eyebrow" }, "Course map · Fall 2026"),
-      h("h1", {}, "Ride every line"),
-      h("p", {}, "One line per session. Each stop is a short game built from that session's slides, so you can revise in five minutes instead of rereading the deck.")),
-    h("div", { class: "totals" },
-      h("div", {}, h("b", {}, String(SESSIONS.length)), h("span", {}, "Sessions")),
-      h("div", {}, h("b", {}, `${played}/${total}`), h("span", {}, "Games played")),
-      h("div", {}, h("b", {}, `${earned}/${possible}`), h("span", {}, "Best points"))),
-    h("div", { class: "home-grid" }, SESSIONS.map(s => {
-      const bests = s.games.map(g => store.get(bestKey(s, g), null));
-      const done = bests.filter(b => b != null).length;
-      return h("button", { class: "line-card", style: `--line: var(${s.line})`, onclick: () => go(s.id) },
-        h("span", { class: "who" }, `${s.date} · ${s.speaker}`),
+    nightBanner(false,
+      h("div", { class: "panel-head" },
+        h("span", { class: "eyebrow" }, h("span", { class: "tag" }, "Lights out"), "Fall 2026 · Singapore night race"),
+        h("h1", {}, `${SESSIONS.length} rounds under the lights.`),
+        h("p", {}, "Every session is a Grand Prix and every game is a session on track. Race through the slides, beat your best time and score championship points.")),
+      lightsBtn),
+    h("div", { class: "timing-board" },
+      h("div", {}, h("b", { class: "pts" }, String(points)), h("span", {}, "Championship pts")),
+      h("div", {}, h("b", {}, `${finished}/${total}`), h("span", {}, "Races finished")),
+      h("div", {}, h("b", {}, String(podiums)), h("span", {}, "Podiums")),
+      h("div", {}, h("b", {}, String(SESSIONS.length)), h("span", {}, "Rounds"))),
+    h("div", { class: "gp-grid" }, SESSIONS.map((s, i) =>
+      h("button", { class: "gp", style: lineStyle(s), onclick: () => go(s.id) },
+        h("span", { class: "bg-num", "aria-hidden": "true" }, String(i + 1)),
+        h("span", { class: "meta" }, `${roundNo(i)} · ${s.date}`),
         h("h3", {}, s.title),
+        h("span", { class: "who" }, s.speaker),
         h("p", {}, s.blurb),
-        h("div", { class: "stops" }, s.games.map(g => h("span", { class: "chip" }, g.name))),
-        h("span", { class: "best" }, done ? `${done} of ${s.games.length} games played` : "Not started"));
-    })));
+        h("div", { class: "schedule" }, s.games.map((g, gi) => {
+          const b = bestOf(s, g);
+          return h("div", {},
+            h("span", { class: "ses" }, sesLabel(s, gi).toUpperCase()),
+            h("span", {}, g.name),
+            h("span", { class: "res" + (b ? (b.pos <= 3 ? " podium" : "") : " none") }, b ? `P${b.pos} · ${b.pts} pts` : "Not raced"));
+        }))))),
+    h("div", { class: "legend", "aria-label": "Sector colours" },
+      h("span", {}, h("i", { style: "background:var(--purple)" }), "Purple: right in under 6 s"),
+      h("span", {}, h("i", { style: "background:var(--green)" }), "Green: right"),
+      h("span", {}, h("i", { style: "background:var(--bad)" }), "Red: off track"),
+      h("span", {}, "Points: 25 · 18 · 15 · 12 · 10 · 8 · 6 · 4 · 2 · 1")));
 }
 
-/* ---------- session ---------- */
+/* ---------- round (race weekend) ---------- */
 function renderSession(s) {
+  const idx = SESSIONS.indexOf(s);
   const saved = store.get("game:" + s.id, s.games[0].id);
   let game = s.games.find(g => g.id === saved) || s.games[0];
   const boardHost = h("div");
-  const picker = h("div", { class: "games", role: "group", "aria-label": "Games" });
-  const drawPicker = () => picker.replaceChildren(...s.games.map(g => {
-    const b = store.get(bestKey(s, g), null);
-    return h("button", { class: "game-pick", "aria-pressed": String(g === game), onclick: () => { game = g; store.set("game:" + s.id, g.id); drawPicker(); start(); } },
-      g.name, h("small", {}, b == null ? "new" : `best ${b}/${maxScore(g)}`));
+  const picker = h("div", { class: "sessions", role: "group", "aria-label": "Sessions" });
+  const drawPicker = () => picker.replaceChildren(...s.games.map((g, gi) => {
+    const b = bestOf(s, g);
+    return h("button", { class: "ses-pick", "aria-pressed": String(g === game), onclick: () => { game = g; store.set("game:" + s.id, g.id); drawPicker(); start(); } },
+      h("span", { class: "s" }, sesLabel(s, gi).toUpperCase()), h("span", { class: "n" }, g.name),
+      h("small", {}, b ? `Best P${b.pos} · ${b.score}/${maxScore(g)}${b.time != null ? " · " + fmt(b.time) : ""}` : "Not raced"));
   }));
-  const start = () => boardHost.replaceChildren(game.type === "sequence" ? sequenceGame(s, game, drawPicker) : quizGame(s, game, drawPicker));
+  const start = () => boardHost.replaceChildren(raceStart(s, game, drawPicker));
   drawPicker(); start();
-  return h("section", { class: "panel", style: `--line: var(${s.line})` },
-    h("div", { class: "panel-head" },
-      h("span", { class: "eyebrow" }, `${s.date} · ${s.speaker}`),
-      h("h1", {}, s.title),
-      h("p", {}, s.blurb)),
+  return h("section", { class: "panel", style: lineStyle(s) },
+    nightBanner(true,
+      h("div", { class: "panel-head" },
+        h("span", { class: "eyebrow" }, h("span", { class: "tag" }, roundNo(idx)), `${s.date} · ${s.speaker}`),
+        h("h1", {}, s.title),
+        h("p", {}, s.blurb))),
     picker, boardHost);
 }
 
-function saveBest(s, g, score) {
+function saveBest(s, g, score, time) {
   const prev = store.get(bestKey(s, g), null);
-  if (prev == null || score > prev) { store.set(bestKey(s, g), score); return true; }
-  return false;
+  const prevT = store.get(timeKey(s, g), null);
+  if (prev == null || score > prev) { store.set(bestKey(s, g), score); store.set(timeKey(s, g), Math.round(time)); return "best"; }
+  if (score === prev && (prevT == null || time < prevT)) { store.set(timeKey(s, g), Math.round(time)); return "time"; }
+  return null;
 }
 
-function boardHeader(g, hud) {
-  return h("div", { class: "board-top" },
-    h("div", {}, h("h2", {}, g.name), h("p", { class: "how" }, g.how)), hud);
+function boardHeader(g, right) {
+  return h("div", { class: "board-top" }, h("div", {}, h("h2", {}, g.name), h("p", { class: "how" }, g.how)), right);
 }
 
-/* ---------- quiz engine ---------- */
+/* ---------- start lights ---------- */
+function raceStart(s, g, onScore) {
+  const build = () => g.type === "sequence" ? sequenceGame(s, g, onScore) : quizGame(s, g, onScore);
+  if (reduceMotion) return build();
+  const board = h("div", { class: "board" });
+  const lights = gantry();
+  const msg = h("div", { class: "msg", role: "status" }, "Formation lap");
+  let cancel = () => {}, launched = false;
+  const launch = () => {
+    if (launched || !board.isConnected) return;
+    launched = true; cancel(); keyHandler = null;
+    board.replaceWith(build());
+  };
+  board.append(boardHeader(g, null),
+    h("div", { class: "grid-start" }, lights, msg,
+      h("p", {}, "Watch the lights. The clock starts when they go out."),
+      h("div", { class: "actions" }, h("button", { class: "btn ghost", onclick: launch }, "Skip to lights out"))));
+  keyHandler = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); launch(); } };
+  setTimeout(() => {
+    if (!board.isConnected) return;
+    cancel = runLights(lights, (i) => { msg.textContent = `${i + 1} of 5`; }, () => {
+      if (!board.isConnected) return;
+      msg.textContent = "Lights out"; msg.classList.add("go");
+      setTimeout(launch, 550);
+    });
+  }, 250);
+  return board;
+}
+
+/* ---------- quiz engine (a race of laps) ---------- */
 function quizGame(s, g, onScore) {
   const rounds = Math.min(g.rounds, g.items.length);
   const deck = shuffle(g.items).slice(0, rounds);
   const allAnswers = [...new Set(g.items.map(i => i.a))];
-  let i = 0, score = 0, streak = 0, bestStreak = 0;
+  let i = 0, score = 0, streak = 0, bestStreak = 0, elapsed = 0, qStart = performance.now(), answered = false, done = false, fastest = null, seen = false;
   const results = [], misses = [];
   const board = h("div", { class: "board" });
+
+  const lapEl = h("b"), posEl = h("b", {}, "P–"), clockEl = h("b", {}, "0:00.0"), drsVal = h("b", {}, "OFF");
+  const drsEl = h("span", { class: "drs" }, "DRS", drsVal);
+  const tower = h("div", { class: "tower", "aria-label": "Timing" }, h("span", {}, "Lap", lapEl), h("span", {}, "Pos", posEl), h("span", {}, "Time", clockEl), drsEl);
+  const updTower = () => {
+    lapEl.textContent = `${Math.min(i + 1, rounds)}/${rounds}`;
+    posEl.textContent = results.length ? `P${posFor(score, results.length)}` : "P–";
+    drsEl.className = "drs" + (streak >= 3 ? " on" : "");
+    drsVal.textContent = streak >= 3 ? "ON" : "OFF";
+  };
+  const iv = setInterval(() => {
+    if (!board.isConnected) { if (seen || done) clearInterval(iv); return; }
+    seen = true;
+    clockEl.textContent = fmt(elapsed + (answered || done ? 0 : performance.now() - qStart));
+  }, 100);
 
   function optionsFor(item) {
     if (item.opts) return shuffle(item.opts);
@@ -339,81 +817,102 @@ function quizGame(s, g, onScore) {
     if (!g.optionCount || pool.length <= g.optionCount) return item.buckets || g.buckets ? [...pool] : shuffle(pool);
     return shuffle([item.a, ...shuffle(pool.filter(x => x !== item.a)).slice(0, g.optionCount - 1)]);
   }
-
-  function hud() {
-    return h("div", { class: "hud" },
-      h("span", {}, "Score", h("b", {}, `${score}`)),
-      h("span", {}, "Streak", h("b", {}, `${streak}`)),
-      h("span", {}, "Q", h("b", {}, `${Math.min(i + 1, rounds)}/${rounds}`)));
-  }
-  function bar() {
-    return h("div", { class: "progress", "aria-hidden": "true" },
-      Array.from({ length: rounds }, (_, k) => h("i", { class: k < results.length ? (results[k] ? "ok" : "no") : k === i ? "now" : "" })));
-  }
+  const sectors = () => h("div", { class: "sectors", "aria-hidden": "true" },
+    Array.from({ length: rounds }, (_, k) => h("i", { class: k < results.length ? results[k] : k === i ? "now" : "" })));
 
   function ask() {
     const item = deck[i];
     const opts = optionsFor(item);
-    let answered = false;
-    const feedback = h("div");
+    answered = false;
+    qStart = performance.now();
+    let radio = h("div");
     const actions = h("div", { class: "actions" }, h("span", { class: "hint" }, `Keys 1–${opts.length} to answer`));
     const buttons = opts.map((o, k) => h("button", { class: "choice", onclick: () => pick(k) }, h("span", { class: "key" }, String(k + 1)), h("span", {}, o)));
+    let bar = sectors();
 
     function pick(k) {
       if (answered) return;
       answered = true;
+      const t = performance.now() - qStart;
+      elapsed += t;
       const ok = opts[k] === item.a;
-      results.push(ok);
-      if (ok) { score++; streak++; bestStreak = Math.max(bestStreak, streak); } else { streak = 0; misses.push(item); }
+      const cls = ok ? (t < FAST_MS ? "fast" : "ok") : "no";
+      results.push(cls);
+      if (ok) { score++; streak++; bestStreak = Math.max(bestStreak, streak); if (fastest == null || t < fastest) fastest = t; }
+      else { streak = 0; misses.push(item); }
+      clockEl.textContent = fmt(elapsed);
       buttons.forEach((b, j) => { b.disabled = true; if (opts[j] === item.a) b.classList.add("right"); else if (j === k) b.classList.add("wrong"); else b.classList.add("dim"); });
-      feedback.replaceWith(h("div", { class: "feedback" + (ok ? "" : " no"), role: "status" },
-        h("strong", {}, ok ? (streak >= 3 ? `Correct. ${streak} in a row.` : "Correct.") : `Not quite. It's ${item.a}.`),
-        h("p", {}, item.why)));
-      const nextBtn = h("button", { class: "btn", onclick: next }, i + 1 < rounds ? "Next question" : "See results");
-      actions.replaceChildren(nextBtn, h("span", { class: "hint" }, "or press Enter"));
-      board.querySelector(".hud").replaceWith(hud());
-      board.querySelector(".progress").replaceWith(bar());
-      nextBtn.focus();
+      const call = ok
+        ? (streak >= 3 ? `DRS open. ${streak} in a row.` : cls === "fast" ? "Purple sector. Great lap." : "Good lap. That's correct.")
+        : `Off track. It's ${item.a}.`;
+      const next = h("button", { class: "btn", onclick: nextLap }, i + 1 < rounds ? "Next lap" : "Take the flag");
+      const nr = h("div", { class: "radio" + (ok ? "" : " no"), role: "status" },
+        h("div", { class: "rh" }, wave(), "Team radio", h("span", { class: "lap" }, `Lap ${fmt(t)}`)),
+        h("strong", {}, call), h("p", {}, item.why));
+      radio.replaceWith(nr); radio = nr;
+      actions.replaceChildren(next, h("span", { class: "hint" }, "or press Enter"));
+      const nb = sectors(); bar.replaceWith(nb); bar = nb;
+      updTower();
+      next.focus({ preventScroll: true });
     }
-    function next() { i++; i < rounds ? ask() : finish(); }
+    function nextLap() { i++; i < rounds ? ask() : finish(); }
 
     keyHandler = (e) => {
       if (!answered && /^[1-9]$/.test(e.key) && +e.key <= opts.length) pick(+e.key - 1);
-      else if (answered && e.key === "Enter" && document.activeElement?.tagName !== "BUTTON") next();
+      else if (answered && e.key === "Enter" && document.activeElement?.tagName !== "BUTTON") nextLap();
     };
+    updTower();
     board.replaceChildren(
-      boardHeader(g, hud()), bar(),
-      h("div", { class: "prompt" }, h("span", { class: "kicker" }, g.kicker), h("p", { class: "q" }, item.q)),
-      h("div", { class: "choices" }, buttons), feedback, actions);
+      boardHeader(g, tower), bar,
+      h("div", { class: "prompt" }, h("span", { class: "kicker" }, `Lap ${i + 1} · ${g.kicker}`), h("p", { class: "q" }, item.q)),
+      h("div", { class: "choices" }, buttons), radio, actions);
   }
 
   function finish() {
-    keyHandler = null;
-    const record = saveBest(s, g, score);
+    done = true; keyHandler = null; clearInterval(iv);
+    const record = saveBest(s, g, score, elapsed);
     onScore();
-    const pct = score / rounds;
+    const pos = posFor(score, rounds), pts = ptsFor(pos);
+    const purple = results.filter(r => r === "fast").length;
+    const verdict = pos === 1 ? "Lights to flag. A perfect race." : pos <= 3 ? "Podium. Review the laps below and go for the win." : pos <= 10 ? "In the points. The laps below are where you lost time." : "Outside the points. Another stint on the laps below will fix it.";
     board.replaceChildren(
-      boardHeader(g, h("span")),
-      h("div", { class: "end" },
-        h("div", { class: "big" }, `${score}`, h("small", {}, ` / ${rounds}`)),
-        h("p", {}, `${pct === 1 ? "Perfect run." : pct >= .7 ? "Strong. Review the misses below and go again." : "Worth another lap. The misses below are the ones to revisit."} Longest streak: ${bestStreak}.${record ? " New personal best." : ""}`),
+      boardHeader(g, null),
+      h("div", { class: "finish" },
+        h("div", { class: "chequer", "aria-hidden": "true" }),
+        h("div", { class: "result" },
+          h("div", { class: "pos" }, `P${pos}`),
+          h("dl", {},
+            h("div", {}, h("dt", {}, "Score"), h("dd", {}, `${score}/${rounds}`)),
+            h("div", {}, h("dt", {}, "Points"), h("dd", {}, String(pts))),
+            h("div", {}, h("dt", {}, "Race time"), h("dd", {}, fmt(elapsed))),
+            h("div", {}, h("dt", {}, "Fastest lap"), h("dd", {}, fastest == null ? "–" : fmt(fastest))),
+            h("div", {}, h("dt", {}, "Purple sectors"), h("dd", {}, String(purple))),
+            h("div", {}, h("dt", {}, "Best streak"), h("dd", {}, String(bestStreak))))),
+        h("p", { class: "verdict" }, verdict, " ", record === "best" ? h("span", { class: "pb" }, "New personal best") : record === "time" ? h("span", { class: "pb" }, "Faster on the same score") : null),
+        misses.length ? h("p", { class: "review-h" }, "Laps to review") : null,
         misses.length ? h("ul", { class: "review" }, misses.map(m => h("li", {}, h("b", {}, m.a), m.q))) : null,
-        h("div", { class: "actions" }, h("button", { class: "btn", onclick: () => board.replaceWith(quizGame(s, g, onScore)) }, "Play again"))));
+        h("div", { class: "actions" }, h("button", { class: "btn", onclick: () => board.replaceWith(raceStart(s, g, onScore)) }, "Race again"))));
   }
 
   ask();
   return board;
 }
 
-/* ---------- sequence engine ---------- */
+/* ---------- sequence engine (starting grid) ---------- */
 function sequenceGame(s, g, onScore) {
-  let p = 0, score = 0;
+  let p = 0, score = 0, seen = false, done = false;
+  const t0 = performance.now();
+  let stopAt = null;
   const board = h("div", { class: "board" });
   const total = maxScore(g);
-
-  function hud() {
-    return h("div", { class: "hud" }, h("span", {}, "Score", h("b", {}, `${score}`)), h("span", {}, "Route", h("b", {}, `${Math.min(p + 1, g.puzzles.length)}/${g.puzzles.length}`)));
-  }
+  const stintEl = h("b"), scoreEl = h("b", {}, "0"), clockEl = h("b", {}, "0:00.0");
+  const tower = h("div", { class: "tower", "aria-label": "Timing" }, h("span", {}, "Stint", stintEl), h("span", {}, "Score", scoreEl), h("span", {}, "Time", clockEl));
+  const now = () => (stopAt ?? performance.now()) - t0;
+  const iv = setInterval(() => {
+    if (!board.isConnected) { if (seen || done) clearInterval(iv); return; }
+    seen = true; clockEl.textContent = fmt(now());
+  }, 100);
+  const updTower = () => { stintEl.textContent = `${Math.min(p + 1, g.puzzles.length)}/${g.puzzles.length}`; scoreEl.textContent = `${score}/${total}`; };
 
   function play() {
     const puzzle = g.puzzles[p];
@@ -422,16 +921,16 @@ function sequenceGame(s, g, onScore) {
     let checked = false;
     const poolEl = h("div", { class: "pool" });
     const routeEl = h("div", { class: "route" });
-    const feedback = h("div");
+    let radio = h("div");
     const actions = h("div", { class: "actions" });
 
     function draw() {
-      poolEl.replaceChildren(h("h4", {}, "Steps"), ...pool.map((st, k) => h("button", { class: "step", onclick: () => { route.push(pool.splice(k, 1)[0]); draw(); } }, st)));
-      if (!pool.length) poolEl.append(h("p", { class: "route-empty" }, "All steps placed."));
-      routeEl.replaceChildren(h("h4", {}, "Your route (tap a step to send it back)"),
-        ...(route.length ? route.map((st, k) => h("button", { class: "step", disabled: checked, onclick: () => { pool.push(route.splice(k, 1)[0]); draw(); } }, st)) : [h("p", { class: "route-empty" }, "Tap the first step.")]));
+      poolEl.replaceChildren(h("h4", {}, "Garage"), ...pool.map((st, k) => h("button", { class: "step", onclick: () => { route.push(pool.splice(k, 1)[0]); draw(); } }, st)));
+      if (!pool.length) poolEl.append(h("p", { class: "route-empty" }, "Every car is on the grid."));
+      routeEl.replaceChildren(h("h4", {}, "Starting grid (tap to send back)"),
+        ...(route.length ? route.map((st, k) => h("button", { class: "step", disabled: checked, onclick: () => { pool.push(route.splice(k, 1)[0]); draw(); } }, st)) : [h("p", { class: "route-empty" }, "Tap the step that starts in P1.")]));
       actions.replaceChildren(
-        h("button", { class: "btn", disabled: route.length !== puzzle.steps.length, onclick: check }, "Check route"),
+        h("button", { class: "btn", disabled: route.length !== puzzle.steps.length, onclick: check }, "Lock in the grid"),
         h("button", { class: "btn ghost", onclick: () => { pool.push(...route.splice(0)); draw(); } }, "Reset"));
     }
     function check() {
@@ -441,26 +940,41 @@ function sequenceGame(s, g, onScore) {
       score += right;
       draw();
       [...routeEl.querySelectorAll(".step")].forEach((b, k) => { b.disabled = true; b.classList.add(route[k] === puzzle.steps[k] ? "right" : "wrong"); });
-      poolEl.replaceChildren(h("h4", {}, "Correct order"), h("ol", { style: "margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px" }, puzzle.steps.map(st => h("li", {}, st))));
-      feedback.replaceWith(h("div", { class: "feedback" + (right === puzzle.steps.length ? "" : " no"), role: "status" },
-        h("strong", {}, `${right} of ${puzzle.steps.length} steps in the right place.`), h("p", {}, puzzle.why)));
-      actions.replaceChildren(h("button", { class: "btn", onclick: () => { p++; p < g.puzzles.length ? play() : finish(); } }, p + 1 < g.puzzles.length ? "Next route" : "See results"));
-      board.querySelector(".hud").replaceWith(hud());
+      poolEl.replaceChildren(h("h4", {}, "Correct order"), h("ol", { class: "answer-key" }, puzzle.steps.map(st => h("li", {}, st))));
+      const clean = right === puzzle.steps.length;
+      const nr = h("div", { class: "radio" + (clean ? "" : " no"), role: "status" },
+        h("div", { class: "rh" }, wave(), "Team radio"),
+        h("strong", {}, clean ? "Perfect grid. Every car in its slot." : `${right} of ${puzzle.steps.length} in the right slot.`),
+        h("p", {}, puzzle.why));
+      radio.replaceWith(nr); radio = nr;
+      actions.replaceChildren(h("button", { class: "btn", onclick: () => { p++; p < g.puzzles.length ? play() : finish(); } }, p + 1 < g.puzzles.length ? "Next stint" : "Take the flag"));
+      updTower();
     }
-    board.replaceChildren(boardHeader(g, hud()),
-      h("div", { class: "prompt" }, h("span", { class: "kicker" }, `Route ${p + 1}`), h("p", { class: "q" }, puzzle.title)),
-      h("div", { class: "seq" }, poolEl, routeEl), feedback, actions);
+    updTower();
+    board.replaceChildren(boardHeader(g, tower),
+      h("div", { class: "prompt" }, h("span", { class: "kicker" }, `Stint ${p + 1} of ${g.puzzles.length}`), h("p", { class: "q" }, puzzle.title)),
+      h("div", { class: "seq" }, poolEl, routeEl), radio, actions);
     draw();
   }
 
   function finish() {
-    const record = saveBest(s, g, score);
+    stopAt = performance.now(); done = true; clearInterval(iv);
+    const time = now();
+    const record = saveBest(s, g, score, time);
     onScore();
-    board.replaceChildren(boardHeader(g, h("span")),
-      h("div", { class: "end" },
-        h("div", { class: "big" }, `${score}`, h("small", {}, ` / ${total}`)),
-        h("p", {}, `${score === total ? "Every step in place. You're ready to ship." : "Each point is one step in the right position."}${record ? " New personal best." : ""}`),
-        h("div", { class: "actions" }, h("button", { class: "btn", onclick: () => board.replaceWith(sequenceGame(s, g, onScore)) }, "Play again"))));
+    const pos = posFor(score, total), pts = ptsFor(pos);
+    board.replaceChildren(boardHeader(g, null),
+      h("div", { class: "finish" },
+        h("div", { class: "chequer", "aria-hidden": "true" }),
+        h("div", { class: "result" },
+          h("div", { class: "pos" }, `P${pos}`),
+          h("dl", {},
+            h("div", {}, h("dt", {}, "Score"), h("dd", {}, `${score}/${total}`)),
+            h("div", {}, h("dt", {}, "Points"), h("dd", {}, String(pts))),
+            h("div", {}, h("dt", {}, "Race time"), h("dd", {}, fmt(time))))),
+        h("p", { class: "verdict" }, score === total ? "Every step in its slot. Lights to flag." : "Each point is one step in the right slot.", " ",
+          record === "best" ? h("span", { class: "pb" }, "New personal best") : record === "time" ? h("span", { class: "pb" }, "Faster on the same score") : null),
+        h("div", { class: "actions" }, h("button", { class: "btn", onclick: () => board.replaceWith(raceStart(s, g, onScore)) }, "Race again"))));
   }
 
   play();
@@ -469,6 +983,5 @@ function sequenceGame(s, g, onScore) {
 
 /* ---------- boot ---------- */
 document.addEventListener("keydown", (e) => { if (keyHandler && !e.metaKey && !e.ctrlKey && !e.altKey) keyHandler(e); });
-document.querySelector(".brand").addEventListener("click", (e) => { e.preventDefault(); go("home"); });
-window.addEventListener("hashchange", () => { const id = location.hash.slice(1); if (id && id !== current) go(id); });
+window.addEventListener("hashchange", () => { const id = location.hash.slice(1) || "home"; if (id !== current) go(id); });
 go(location.hash.slice(1) || store.get("tab", "home"));

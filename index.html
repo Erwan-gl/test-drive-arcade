@@ -3,33 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Test Drive Arcade</title>
-<meta name="description" content="Interactive revision games for each session of ESSEC Digital Platforms Test Drive, Fall 2026.">
+<title>Test Drive Grand Prix</title>
+<meta name="description" content="Race-weekend revision games for each session of ESSEC Digital Platforms Test Drive, Fall 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,600;0,700;0,900;1,600;1,700&family=JetBrains+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="styles.css">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
 <header class="masthead">
   <div class="wrap masthead-inner">
-    <a class="brand" href="#home" data-go="home">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-text">Test Drive <b>Arcade</b></span>
+    <a class="brand" href="#home">
+      <span class="flag" aria-hidden="true"></span>
+      <span class="brand-text">Test Drive <b>Grand Prix</b></span>
     </a>
-    <p class="course">ESSEC · Digital Platforms Test Drive · Fall 2026</p>
+    <p class="season">2026 Season · ESSEC Digital Platforms</p>
   </div>
-  <nav class="line-nav wrap" aria-label="Sessions">
-    <div class="track" id="tabs" role="tablist"></div>
+  <div class="kerb" aria-hidden="true"></div>
+  <nav class="calendar-wrap" aria-label="Race calendar">
+    <div class="wrap"><div class="calendar" id="tabs" role="tablist"></div></div>
   </nav>
 </header>
 
-<main class="wrap" id="main">
-  <!-- Panels are rendered by script.js from the SESSIONS list -->
-</main>
+<main class="wrap" id="main"></main>
 
 <footer class="wrap foot">
-  <p>Built with Claude Code from the session decks. Content: Madina Kalyayeva (ESSEC) and LaunchLab (Yibo, Nirvan, Rishabh). Best scores are saved in this browser only.</p>
+  <p>Built with Claude from the session decks. Content: Madina Kalyayeva (ESSEC), LaunchLab (Yibo, Nirvan, Rishabh) and Nick Goh (Yellow Pages Singapore). The Louis Vuitton Terra case is a fictional training scenario from the deck. Results are saved in this browser only.</p>
 </footer>
 
 <script src="script.js"></script>
