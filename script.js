@@ -1,4 +1,4 @@
-/* Test Drive Grand Prix
+/* Drive Grand Prix - Digital Platforms
  * To add a round: push one object onto SESSIONS with a `line` livery (l1-l4) and a `games` list.
  * Game types: "quiz" (pick an answer; distractors from other answers, a fixed `buckets` list or `opts`)
  *             "sequence" (put shuffled steps in grid order)
