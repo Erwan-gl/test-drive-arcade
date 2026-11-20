@@ -26,6 +26,7 @@
   --l2: #ff8000; --l2t: #ff9633; --l2o: #160b00;   /* R2 LaunchLab */
   --l3: #00d2be; --l3t: #2fe0cf; --l3o: #00201d;   /* R3 Martech */
   --l4: #ffd400; --l4t: #ffdc33; --l4o: #1a1600;   /* R4 AI Marketing Team */
+  --l5: #2f7fff; --l5t: #6ea6ff; --l5o: #ffffff;   /* R5 LinkedIn */
   --font-display: "Titillium Web", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Titillium Web", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -56,7 +57,6 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; li
 .flag { width: 30px; height: 22px; background: repeating-conic-gradient(var(--ink) 0 25%, var(--bg) 0 50%) 0 0 / 10px 10px; transform: skewX(-12deg); border: 1px solid var(--ink); }
 .brand-text { font: italic 700 24px/1 var(--font-display); text-transform: uppercase; letter-spacing: .01em; }
 .brand-text b { font-weight: 900; color: var(--neon); text-shadow: 0 0 18px rgba(255, 61, 139, .55); }
-.brand-sub { font: 700 12px/1 var(--font-mono); font-style: normal; letter-spacing: .08em; color: var(--muted); margin-left: 6px; white-space: nowrap; vertical-align: middle; }
 .season { margin: 0; font: 500 11px/1.3 var(--font-mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
 .kerb { height: 6px; background: repeating-linear-gradient(135deg, var(--kerb-a) 0 14px, var(--kerb-b) 14px 28px); }
 
