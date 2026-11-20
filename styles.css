@@ -281,3 +281,4 @@ main { padding-block: 28px 24px; }
   .night::after { background: linear-gradient(180deg, rgba(5, 8, 22, .9) 0%, rgba(5, 8, 22, .65) 45%, rgba(5, 8, 22, 0) 75%); }
   .scene-cap { display: none; }
 }
+.brand-sub { font: 700 12px/1 var(--font-mono); font-style: normal; letter-spacing: .08em; color: var(--muted); margin-left: 6px; white-space: nowrap; vertical-align: middle; }
